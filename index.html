@@ -640,10 +640,13 @@ const PROJECTS = [
     metrics: ["R² 0.63", "Scaffold-split R² 0.46", "758 compounds"],
     tags: ["Python", "RDKit", "scikit-learn", "Streamlit"],
     details: [
-      "Modeled potency of 758 ChEMBL compounds using RDKit Morgan fingerprints and a Random Forest.",
-      "R² 0.63 on a random split; R² 0.46 on a stricter scaffold split, against a −0.02 baseline.",
-      "Streamlit app returns the 5 nearest molecules for a query compound."
-    ]
+      "Modeled potency of 758 ChEMBL compounds (251 distinct scaffolds) using RDKit Morgan fingerprints and a Random Forest.",
+      "R² 0.63 on a random split; R² 0.46 on a stricter scaffold split, where whole chemical series are held out, against a −0.02 baseline.",
+      "The scaffold split is the honest test: it measures whether the model generalises to new chemistry rather than memorising known series.",
+      "Streamlit app draws the molecule, predicts its potency and returns the 5 most similar known compounds by Tanimoto similarity."
+    ],
+    demo: "https://janvi-c5ar1-potency.streamlit.app",
+    code: "https://github.com/JanviKGabani/c5ar1-potency-predictor"
   },
   {
     title: "Speech Denoiser",
