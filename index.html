@@ -577,7 +577,7 @@ footer{padding-block:34px calc(34px + env(safe-area-inset-bottom,0px));border-to
    CONTENT DATA: edit these arrays to add or change site content.
    ===================================================================== */
 
-// Projects: categories must match FILTERS below. `demo` is optional.
+// Projects: categories must match FILTERS below. `demo` (live app URL) and `code` (GitHub repo URL) are optional.
 // `thumb` picks the card's header illustration: "bars", "curve", "scatter", "wave" or "nodes".
 const PROJECTS = [
   {
@@ -649,13 +649,16 @@ const PROJECTS = [
     title: "Speech Denoiser",
     categories: ["Machine Learning"], thumb: "wave",
     summary: "PyTorch speech enhancement model trained on VoiceBank-DEMAND, evaluated with PESQ and STOI, exported to ONNX.",
-    metrics: ["PESQ + STOI", "ONNX export"],
+    metrics: ["PESQ 2.16 → 2.65", "+8 dB SI-SDR", "Real-time ONNX"],
     tags: ["PyTorch", "Audio", "ONNX"],
     details: [
-      "Trained a PyTorch speech enhancement model on the VoiceBank-DEMAND dataset.",
-      "Evaluated with PESQ (perceptual quality) and STOI (intelligibility).",
-      "Exported to ONNX for portable deployment."
-    ]
+      "Trained a causal 2-layer GRU (264k parameters) that predicts STFT magnitude masks, on the VoiceBank-DEMAND dataset.",
+      "On 200 test clips: PESQ 2.16 → 2.65 and SI-SDR 8.5 → 16.4 dB, beating a Wiener-filter baseline.",
+      "Exported to ONNX and run frame by frame (16 ms frames) on one CPU thread, so it works on live audio.",
+      "The live demo lets you denoise test clips or your own recordings and compare against the baseline."
+    ],
+    demo: "https://janvi-speech-denoiser.streamlit.app",
+    code: "https://github.com/JanviKGabani/speech-denoiser"
   },
   {
     title: "Employee Task Prioritization System",
@@ -804,7 +807,7 @@ $('#projGrid').addEventListener('click', e => {
     <div><div class="lab">Key results</div><div class="metrics">${p.metrics.map(m=>`<span class="metric">${esc(m)}</span>`).join('')}</div></div>
     <div><div class="lab">Details</div><ul>${p.details.map(d=>`<li>${esc(d)}</li>`).join('')}</ul></div>
     <div><div class="lab">Tech</div><div class="tech">${p.tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div></div>
-    ${p.demo?`<div><a class="btn btn-accent" href="${esc(p.demo)}" target="_blank" rel="noopener">Live Demo ${svg('<path d="M7 17L17 7M9 7h8v8"/>',2.4)}</a></div>`:''}`;
+    ${(p.demo||p.code)?`<div class="btn-row">${p.demo?`<a class="btn btn-accent" href="${esc(p.demo)}" target="_blank" rel="noopener">Live Demo ${svg('<path d="M7 17L17 7M9 7h8v8"/>',2.4)}</a>`:''}${p.code?`<a class="btn btn-dark" href="${esc(p.code)}" target="_blank" rel="noopener">View Code ${svg('<path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/>',2.4)}</a>`:''}</div>`:''}`;
   modal.showModal();
 });
 $('#projGrid').addEventListener('keydown', e => { if ((e.key==='Enter'||e.key===' ') && e.target.classList.contains('proj')) { e.preventDefault(); e.target.click(); } });
