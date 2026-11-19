@@ -595,6 +595,22 @@ const PROJECTS = [
     demo: "https://janvi-insurance-pricing.streamlit.app"
   },
   {
+    title: "ASL Sign Language Translator",
+    categories: ["Machine Learning", "Apps"], thumb: "nodes",
+    summary: "Reads American Sign Language letters from the shape of a hand, using MediaPipe landmarks and a small neural network. Try it with your own webcam.",
+    metrics: ["26 letters", "2,081 frames", "Runs on NumPy alone"],
+    tags: ["Python", "MediaPipe", "TensorFlow", "Streamlit", "Computer Vision"],
+    details: [
+      "MediaPipe Hands locates 21 landmarks per hand; normalising them (wrist to origin, unit scale, left hands mirrored) makes the features invariant to position, distance and which hand is used.",
+      "A 256→128→64→26 MLP classifies the resulting 63 numbers into a letter, trained on 2,081 labelled frames.",
+      "Both the random and capture-order splits score 100%, but that reflects how separable the letters are in landmark space rather than model sophistication: all frames came from two people in one session.",
+      "I added a capture-order evaluation because consecutive frames of a held pose are near-duplicates, so a shuffled split leaks them across train and test.",
+      "The trained network is exported to NumPy with the batch-norm layers folded in, so the deployed demo loads no deep-learning runtime at all."
+    ],
+    demo: "https://janvi-asl-translator.streamlit.app",
+    code: "https://github.com/JanviKGabani/asl-sign-language-translator"
+  },
+  {
     title: "FuelSense",
     categories: ["Machine Learning", "Apps"], thumb: "curve",
     summary: "Predicts meal calories and post-meal blood-sugar peaks from meal photos using CLIP and gradient boosting.",
