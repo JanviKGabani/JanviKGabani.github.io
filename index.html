@@ -631,14 +631,17 @@ const PROJECTS = [
     categories: ["Data Analysis", "Machine Learning"], thumb: "scatter",
     summary: "Three-table SQLite schema for ~6,500 wines, SQL data validation, regression, decision trees and clustering to find quality drivers.",
     metrics: ["1,177 duplicates removed", "R² 0.306", "0.73 recall"],
-    tags: ["SQL", "SQLite", "Python", "Statsmodels", "scikit-learn", "Google Sheets"],
+    tags: ["SQL", "SQLite", "Python", "Statsmodels", "scikit-learn", "Streamlit"],
     details: [
-      "Designed a three-table relational SQLite schema for ~6,500 red and white wines (UCI dataset).",
-      "SQL validation with a window-function view found and removed 1,177 duplicate rows (~18%).",
-      "Regression (R² 0.306 after resolving multicollinearity) and a depth-3 decision tree (0.73 recall for high-quality wines) both identified alcohol and volatile acidity as the key quality drivers.",
-      "K-means clustering recovered wine type without using it as an input; one white-wine cluster showed ~3.8× the high-quality rate of another.",
-      "Summarized results with pivot tables and an SPC control chart in Google Sheets."
-    ]
+      "Designed a three-table relational SQLite schema for 6,497 red and white wines (UCI dataset), with foreign keys and CHECK constraints enforcing ranges — including that free SO₂ can never exceed total SO₂.",
+      "A window-function view found 1,177 exact duplicate rows (18%): identical chemistry and identical quality score. Left in, they would have put the same wine in both training and test data. It keeps the duplicates in the base table so the count stays auditable.",
+      "Regression on standardised predictors reached R² 0.306. Density was dropped for multicollinearity — its VIF was 14.9, being close to a linear function of alcohol and residual sugar.",
+      "A depth-3 decision tree caught 0.73 of high-quality wines on a held-out 20%, using balanced class weights because only 19% score 7+. Its top splits were alcohol then volatile acidity — the same drivers the regression found, from a different method.",
+      "K-means on the chemistry alone recovered wine type without being given it, and split the whites into two clusters differing 3.8× in high-quality rate; the better one is drier and stronger.",
+      "The dashboard includes an SPC control chart on volatile acidity and a read-only SQL console for querying the warehouse directly."
+    ],
+    demo: "https://janvi-wine-quality.streamlit.app",
+    code: "https://github.com/JanviKGabani/wine-quality-analytics"
   },
   {
     title: "SEC Filings Sentiment & Event Study",
