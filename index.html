@@ -651,9 +651,12 @@ const PROJECTS = [
     tags: ["Python", "NLP", "BeautifulSoup", "yfinance"],
     details: [
       "Extracted MD&A sections from 96 10-K and 10-Q filings for Walmart, Costco, Target and Best Buy (2020–2025).",
-      "Scored text with the Loughran-McDonald financial sentiment dictionary.",
-      "Ran an event study testing sentiment against abnormal stock returns."
-    ]
+      "The extractor took five iterations to reach 96/96. Costco writes 'Item 7—Management's' with an em dash rather than a period, and one Best Buy 10-Q matched only its table-of-contents entry, which needed a cross-reference filter.",
+      "Scored text with the Loughran-McDonald dictionary — finance-specific, because general lexicons misread words like 'liability' and 'crude' in filings.",
+      "Measured abnormal returns as the company's return minus SPY over 5, 10 and 20 trading days after filing.",
+      "The result is a null: correlations of 0.12–0.15 with p-values of 0.14–0.25. MD&A tone did not predict post-filing returns, which is roughly what market efficiency would predict given the content is already public from the earnings call."
+    ],
+    code: "https://github.com/JanviKGabani/sec-filings-sentiment"
   },
   {
     title: "C5aR1 Drug Potency Predictor",
@@ -693,9 +696,11 @@ const PROJECTS = [
     tags: ["Python", "XGBoost", "Streamlit"],
     details: [
       "Ranks uploaded tasks from CSV or PDF files using XGBoost's learning-to-rank model (XGBRanker).",
+      "Ranking rather than classification is the right framing: the question is not whether a task is high priority in isolation, but which of one person's tasks comes first. Each employee's tasks form a query group and the model learns a pairwise ordering within it.",
       "Generates downloadable PDF summaries of the prioritized tasks.",
       "Built at Cybersecurity Umbrella and refined with user feedback."
-    ]
+    ],
+    code: "https://github.com/JanviKGabani/task-prioritization"
   },
   {
     title: "Task Summarizer",
@@ -704,9 +709,11 @@ const PROJECTS = [
     metrics: ["bart-large-cnn", "Per-employee summaries"],
     tags: ["Hugging Face", "NLP", "Flask"],
     details: [
-      "Fine-tuned Hugging Face BART (bart-large-cnn) to generate per-employee task summaries.",
-      "Deployed as a Flask web app."
-    ]
+      "Fine-tuned Hugging Face BART (bart-large-cnn) to turn a list of assigned tasks into a short per-employee summary, so a manager reads one line per person instead of scanning a ticket queue.",
+      "Trained with mixed precision and gradient accumulation to fit a 400M-parameter model into a single Colab GPU's memory.",
+      "Generation uses beam search with 4 beams. Deployed as a Flask web app at Cybersecurity Umbrella."
+    ],
+    code: "https://github.com/JanviKGabani/task-summarizer"
   }
 ];
 const FILTERS = ["All", "Machine Learning", "Data Analysis", "NLP", "Apps"];
