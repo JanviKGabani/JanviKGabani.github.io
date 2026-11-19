@@ -615,13 +615,16 @@ const PROJECTS = [
     categories: ["Machine Learning", "Apps"], thumb: "curve",
     summary: "Predicts meal calories and post-meal blood-sugar peaks from meal photos using CLIP and gradient boosting.",
     metrics: ["−17% calorie error", "−26% glucose error", "1,700+ meals"],
-    tags: ["Python", "CLIP", "Gradient Boosting", "Gradio"],
+    tags: ["Python", "CLIP", "Gradient Boosting", "Streamlit", "Gradio"],
     details: [
-      "Uses CLIP image embeddings with gradient boosting to predict meal calories and post-meal glucose peaks from photos.",
-      "Trained on PhysioNet CGMacros data: 45 adults and 1,700+ meals.",
-      "Cut calorie error by 17% and glucose error by 26%.",
-      "Packaged as an interactive Gradio app."
-    ]
+      "CLIP turns a meal photo into a 512-value embedding; a RidgeCV model per nutrient predicts calories, carbs, protein and fat.",
+      "HistGradientBoosting then predicts the 2-hour glucose peak from that nutrition plus age, BMI, A1c, fasting glucose, meal type and planned activity.",
+      "Quantile models give a likely range rather than a single number, widened per A1c group by the model's own observed error.",
+      "Trained on PhysioNet CGMacros data: 45 adults and 1,700+ meals. Cut calorie error by 17% and glucose error by 26%.",
+      "A research prototype, not a medical device: estimates are off by about 30 mg/dL on average, and more for people with diabetes."
+    ],
+    demo: "https://janvi-fuelsense.streamlit.app",
+    code: "https://github.com/JanviKGabani/fuelsense"
   },
   {
     title: "Wine Quality Analytics",
